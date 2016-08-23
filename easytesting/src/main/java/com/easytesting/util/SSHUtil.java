@@ -1,21 +1,13 @@
 package com.easytesting.util;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
-import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import ch.ethz.ssh2.ChannelCondition;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.InteractiveCallback;
-import ch.ethz.ssh2.SCPClient;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
 
@@ -236,6 +227,60 @@ public class SSHUtil {
 			}
 		}
 		return out;
+	}
+	
+	
+	/**
+	 * Asynchronously executes the given command on the remote host using ssh.
+	 * It doesn't waits for command to complete on the remote host.
+	 *
+	 * @param Connection
+	 *            SSH Connection
+	 * @param command
+	 *            Command to be executed
+	 * @throws IOException
+	 *             , Exception
+	 */
+	public static void executeAsyncRemoteSSHCommand(Connection conn,
+			String command) throws Exception {
+		Session session = null;
+		try {
+			session = conn.openSession();
+			log.info("Running command '"
+					+ command
+					+ "' asynchronously. "
+					+ " It doesn't wait for command to complete on remote host.");
+			session.execCommand(command);
+			int sleep = 10;
+			log.info("Sleep for " + sleep + " seconds for command to kick in.");
+			Thread.sleep(sleep * 1000);
+
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
+	
+	
+	public static void main(String args[]) {
+		Connection con = null;
+		try {
+			con = SSHUtil.getSSHConnection("10.144.137.53", "root", "ca$hc0w");
+			Map<String, String> ret = SSHUtil.getRemoteSSHCmdOutput(con, "cat /abcd");
+			for(Map.Entry<String, String> t : ret.entrySet()) {
+				log.info("Result: " + t.getKey() + "+" + t.getValue());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				SSHUtil.closeSSHConnection(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }
