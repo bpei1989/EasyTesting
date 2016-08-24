@@ -1,2 +1,2 @@
 # EasyTesting
-A test framework package, which can help developing the automation test cases
+A test helper package, which can make develop automated test cases much more easier. 
