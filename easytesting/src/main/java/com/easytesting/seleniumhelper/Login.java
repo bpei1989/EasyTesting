@@ -20,7 +20,7 @@ public class Login {
 		WebElement e = driver.findElement(By.xpath("//input[@name='account']"));
 		e.sendKeys("1bingshui@sina.com");
 		WebElement e1 = driver.findElement(By.xpath("//input[@name='password']"));
-		e1.sendKeys("19891028ab");
+		e1.sendKeys("aaaaaa");
 		Thread.sleep(10000);
 		List<WebElement> el = driver.findElements(By.className("sign-button"));
 		el.get(0).click();
