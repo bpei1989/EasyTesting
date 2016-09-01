@@ -1,4 +1,4 @@
-package com.easytesting.seleniumhelper;
+package com.easytesting.selenium;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.easytesting.seleniumhelper;
+package com.easytesting.selenium;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

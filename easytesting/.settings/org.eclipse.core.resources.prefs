@@ -1,4 +1,9 @@
 eclipse.preferences.version=1
-encoding//src/main/java/com/easytesting/seleniumhelper/Login.java=UTF-8
-encoding//src/main/java/com/easytesting/util/Base64Coder.java=UTF-8
+encoding//src/main/java/com/easytesting/selenium/Login.java=UTF-8
+encoding//src/main/java/com/easytesting/util/Base64Util.java=UTF-8
+encoding//src/main/java/com/easytesting/util/CastUtil.java=UTF-8
+encoding//src/main/java/com/easytesting/util/FileUtil.java=UTF-8
+encoding//src/main/java/com/easytesting/util/IOUtil.java=UTF-8
+encoding//src/main/java/com/easytesting/util/PropertiesUtil.java=UTF-8
+encoding//src/main/java/com/easytesting/util/StringUtil.java=UTF-8
 encoding//src/main/java/com/easytesting/util/ThreadUtil.java=UTF-8

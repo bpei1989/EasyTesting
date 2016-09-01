@@ -4,7 +4,7 @@ package com.easytesting.util;
  * Helper class which encodes/decodes strings into/from Base64coded strings This
  * is used in login extension
  */
-public class Base64Coder
+public class Base64Util
 {
    /**
     * Mapping table from 6-bit nibbles to Base64 characters.
