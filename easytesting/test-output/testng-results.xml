@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="4" passed="4">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="8922" started-at="2016-09-02T13:52:55Z" finished-at="2016-09-02T13:53:04Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="8922" started-at="2016-09-02T13:52:55Z" finished-at="2016-09-02T13:53:04Z">
+      <class name="com.easytesting.http.testing.EasyHttpClientTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@41de4499]" name="setUp" is-config="true" duration-ms="9" started-at="2016-09-02T21:52:55Z" finished-at="2016-09-02T21:52:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="testHeaderGet()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@41de4499]" name="testHeaderGet" duration-ms="832" started-at="2016-09-02T21:52:55Z" finished-at="2016-09-02T21:52:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testHeaderGet -->
+        <test-method status="PASS" signature="testProxyGet()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@41de4499]" name="testProxyGet" duration-ms="1983" started-at="2016-09-02T21:52:56Z" finished-at="2016-09-02T21:52:58Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testProxyGet -->
+        <test-method status="PASS" signature="testSimpleGet()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@41de4499]" name="testSimpleGet" duration-ms="6028" started-at="2016-09-02T21:52:58Z" finished-at="2016-09-02T21:53:04Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSimpleGet -->
+        <test-method status="PASS" signature="testhttpsGet()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@41de4499]" name="testhttpsGet" duration-ms="45" started-at="2016-09-02T21:53:04Z" finished-at="2016-09-02T21:53:04Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testhttpsGet -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@41de4499]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-02T21:53:04Z" finished-at="2016-09-02T21:53:04Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.easytesting.http.testing.EasyHttpClientTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

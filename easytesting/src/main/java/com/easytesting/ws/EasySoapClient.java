@@ -1,5 +1,5 @@
 package com.easytesting.ws;
 
-public class SoapClient {
+public class EasySoapClient {
 
 }
