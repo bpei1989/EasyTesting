@@ -2,6 +2,10 @@ package com.easytesting.http.testing;
 
 import static org.testng.Assert.fail;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import org.apache.http.Header;
 import org.apache.http.client.HttpClient;
 import org.apache.log4j.Logger;
@@ -14,7 +18,8 @@ import com.easytesting.http.HttpHeader;
 import com.easytesting.http.HttpMethods;
 import com.easytesting.http.EasyHttpClientBuilder;
 import com.easytesting.http.EasyHttpClient;
-import com.easytesting.selenium.WebDriverFactory;
+import com.easytesting.util.IOUtil;
+import com.easytesting.util.FileUtil;
 
 
 public class EasyHttpClientTest {
@@ -57,6 +62,20 @@ public class EasyHttpClientTest {
 			HttpClient client= EasyHttpClientBuilder.newInstance().proxy("proxy.vmware.com", 3128).timeout(20000).configSSL().build();
 			response = EasyHttpClient.get(config.client(client).url(proxyUrl));
 			log.info("请求结果内容："+ response);
+	  }
+	  @Test
+	  public void testDownload() throws Exception {
+		try {
+			String url="http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%8F%A4%E5%85%B8&step_word=&hs=0&pn=3&spn=0&di=73253863210&pi=&rn=1&tn=baiduimagedetail&is=&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=2019014641%2C3081763674&os=2998365926%2C407559684&simid=4206257873%2C564572442&adpicid=0&ln=1963&fr=&fmq=1473043938467_R&fm=detail&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fpic2.ooopic.com%2F12%2F63%2F69%2F59bOOOPICe0_1024.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fojtst_z%26e3B555rtv_z%26e3Bv54AzdH3Fojtst_8dmnmlcl_z%26e3Bip4s&gsm=0&rpstart=0&rpnum=0";
+			FileUtil.createFileRecursively("E:\\testing\\download");
+			FileOutputStream out = new FileOutputStream(new File("E:\\testing\\download"));
+			EasyHttpClient.down(HttpConfig.newInstance().url(url).out(out));
+			out.flush();
+			out.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	  }
 	  @AfterClass(alwaysRun = true)
 	  public void tearDown() throws Exception {

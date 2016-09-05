@@ -15,7 +15,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
-
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -26,6 +25,7 @@ import org.apache.log4j.Logger;
 import com.easytesting.http.HttpConfig;
 import com.easytesting.http.HttpMethods;
 import com.easytesting.http.EasyHttpClientBuilder;
+
 
 /**
  * HttpClient类，支持http和https，包括GET,POST,PUT,DELETE方法
@@ -206,6 +206,54 @@ public class EasyHttpClient {
 			logger.error("IO exception: " + e.toString());
 			throw e;
 		}
+	}
+	
+	/**
+	 * 下载
+	 * 
+	 * @param client				client对象
+	 * @param url					资源地址
+	 * @param headers			请求头信息
+	 * @param context			http上下文，用于cookie操作
+	 * @param out					输出流
+	 * @return						返回处理结果
+	 * @throws HttpProcessException 
+	 */
+	public static OutputStream down(HttpClient client, String url, Header[] headers, HttpContext context, OutputStream out) throws Exception {
+		return fmt2Stream(execute(HttpConfig.newInstance().client(client).url(url).method(HttpMethods.GET).headers(headers).context(context).out(out)), out);
+	}
+	
+	/**
+	 * 下载图片
+	 * 
+	 * @param config		请求参数配置
+	 * @param out					输出流
+	 * @return						返回处理结果
+	 * @throws HttpProcessException 
+	 */
+	public static OutputStream down(HttpConfig config) throws Exception {
+		return fmt2Stream(execute(config.method(HttpMethods.GET)), config.out());
+	}
+	
+	/**
+	 * 转化为流
+	 * 
+	 * @param entity			实体
+	 * @param out				输出流
+	 * @return
+	 * @throws HttpProcessException 
+	 */
+	public static OutputStream fmt2Stream(HttpResponse resp, OutputStream out) throws Exception {
+		try {
+			resp.getEntity().writeTo(out);
+			EntityUtils.consume(resp.getEntity());
+		} catch (IOException e) {
+			logger.error("Exceptoin in method fmt2Stream : " + e.toString());
+			throw new IOException(e);
+		}finally{
+			close(resp);
+		}
+		return out;
 	}
 	
 	/**
