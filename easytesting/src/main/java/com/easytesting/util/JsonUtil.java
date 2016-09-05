@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSON;
 public class JsonUtil {
 	private static final Logger logger = LoggerFactory.getLogger(IOUtil.class);
 	
-	public static Map<?, ?> jsonToMap(String jsonStr) {
+	public static Map<?, ?> json2Map(String jsonStr) {
 		try{
 			Map<?, ?> result = (Map<?, ?>) JSON.parse(jsonStr);
 			return result;
