@@ -34,6 +34,15 @@ public final class StringUtil {
     }
     
     /**
+     * 判断字符串是否空白
+     * @param str 字符串
+     * @return 空白则返回false，否则true
+     */
+    public static boolean isNotBlank(String str) {
+        return isNotBlank(str);
+    }
+    
+    /**
      * 判断字符串是否相等
      * @param str1 源字符串字符串
      * @param str2 目标字符串
@@ -47,6 +56,23 @@ public final class StringUtil {
         }
         return str1.equals(str2);
     }
+    
+    
+    /**
+     * 判断字符串是否相等,不区分大小写
+     * @param str1 源字符串字符串
+     * @param str2 目标字符串
+     * @return 是否相等（true/false）
+     */
+    public static boolean equalsIgnoreCase(final String s1, final String s2)
+    {
+        if (s1 == null || s2 == null)
+        {
+            return s1 == s2;
+        }
+        return s1.equalsIgnoreCase(s2);
+    }
+
     
 	/**
 	 * 通过正则表达式获取内容

@@ -42,6 +42,7 @@ public class HttpConstants {
 	public static final String TEXT_HTML="text/html";
 	public static final String TEXT_XML="text/xml";
 	public static final String TEXT_JSON="text/json";
+	public static final String APPLICATION_JSON="application/json";
 	public static final String CONTENT_CHARSET_ISO_8859_1 = Consts.ISO_8859_1.name();
 	public static final String CONTENT_CHARSET_UTF8 = Consts.UTF_8.name();
 	public static final String DEF_PROTOCOL_CHARSET = Consts.ASCII.name();

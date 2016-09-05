@@ -15,5 +15,6 @@ encoding//src/main/java/com/easytesting/util/IOUtil.java=UTF-8
 encoding//src/main/java/com/easytesting/util/PropertiesUtil.java=UTF-8
 encoding//src/main/java/com/easytesting/util/StringUtil.java=UTF-8
 encoding//src/main/java/com/easytesting/util/ThreadUtil.java=UTF-8
+encoding//src/main/java/com/easytesting/ws/EasyHttpRestClient.java=UTF-8
 encoding//src/test/java/com/easytesting/http/testing/EasyHttpClientTest.java=UTF-8
 encoding//src/test/java/com/easytesting/selenium/testing/Login.java=UTF-8
