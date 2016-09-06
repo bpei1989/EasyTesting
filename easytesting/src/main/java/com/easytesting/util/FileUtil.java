@@ -3,6 +3,8 @@ package com.easytesting.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.easytesting.util.StringUtil;
 import com.easytesting.util.IOUtil;
@@ -62,10 +64,10 @@ public class FileUtil {
     }
 
     /**
-     * 判断是否为文件，如果<code>file</code>为<code>null</code>，则返回<code>false</code>
+     * 判断是否为文件
      * 
      * @param file 文件
-     * @return 如果为文件<code>true</code>
+     * @return 如果为文件true
      */
     public static boolean isFile(File file) {
         return (file == null) ? false : file.isDirectory();
@@ -76,7 +78,7 @@ public class FileUtil {
      * 简单工厂
      * 
      * @param filename 文件名
-     * @return <code>new File(filename)</code>
+     * @return new File(filename)
      */
     public static File file(String filename) {
         if (filename == null) {
@@ -151,5 +153,26 @@ public class FileUtil {
 
         return file.createNewFile();
     }
+    
+    /**
+     * 获取目录下所有文件文件
+     * 
+     * @param f2 路径
+     * @return 目录下所有文件的列表
+     * @throws IOException
+     */
+    public static void getFileRecursively(File file, List<File> fileList) throws IOException {
+    	File[] filearry = file.listFiles();
+    	if (filearry == null)
+    		return;
+    	for (File f : filearry) {
+    		if(f.isDirectory()){
+				getFileRecursively(f, fileList);
+			} else {
+				fileList.add(f);
+			}
+    	}
+    }
+    
 
 }

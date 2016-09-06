@@ -18,6 +18,7 @@ import com.easytesting.http.EasyHttpClient;
 import com.easytesting.http.EasyHttpClientBuilder;
 import com.easytesting.http.HttpConfig;
 import com.easytesting.http.HttpConstants;
+import com.easytesting.http.HttpHeader;
 import com.easytesting.util.StringUtil;
 
 /**
@@ -114,9 +115,7 @@ public class EasyHttpRestClient {
     public static boolean postToUrlByHttps(String body, String url) {
     	try {
     		HttpClient client = EasyHttpClientBuilder.newInstance().configSSL().timeout(timeout).pool(maxTotal, maxPerRoute).build();
-    		Header header1 = new BasicHeader("Content-Type", HttpConstants.APPLICATION_JSON);
-    		Header header2 = new BasicHeader("connection", HttpConstants.KEEP_ALIVE);
-    		Header[] headers = {header1, header2};
+    		Header[] headers=HttpHeader.newInstance().userAgent("Mozilla/5.0").connection(HttpConstants.KEEP_ALIVE).contentType(HttpConstants.APPLICATION_JSON).build();
     		String ret = EasyHttpClient.post(config.client(client).headers(headers).url(url));
 	        if (StringUtil.isNotBlank(ret)) {
 	            return true;
