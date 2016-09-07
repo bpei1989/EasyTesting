@@ -2,20 +2,20 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="7356" started-at="2016-09-07T05:48:13Z" finished-at="2016-09-07T05:48:20Z">
+  <suite name="Default suite" duration-ms="6171" started-at="2016-09-07T08:06:24Z" finished-at="2016-09-07T08:06:30Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="7356" started-at="2016-09-07T05:48:13Z" finished-at="2016-09-07T05:48:20Z">
+    <test name="Default test" duration-ms="6171" started-at="2016-09-07T08:06:24Z" finished-at="2016-09-07T08:06:30Z">
       <class name="com.easytesting.lucene.testing.SimpleSearchEngineTest">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.easytesting.lucene.testing.SimpleSearchEngineTest@4318dcec]" name="setUp" is-config="true" duration-ms="362" started-at="2016-09-07T13:48:13Z" finished-at="2016-09-07T13:48:13Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.easytesting.lucene.testing.SimpleSearchEngineTest@7a4eac67]" name="setUp" is-config="true" duration-ms="348" started-at="2016-09-07T16:06:24Z" finished-at="2016-09-07T16:06:25Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="testSearch()[pri:0, instance:com.easytesting.lucene.testing.SimpleSearchEngineTest@4318dcec]" name="testSearch" duration-ms="6980" started-at="2016-09-07T13:48:13Z" finished-at="2016-09-07T13:48:20Z">
+        <test-method status="PASS" signature="testSearch()[pri:0, instance:com.easytesting.lucene.testing.SimpleSearchEngineTest@7a4eac67]" name="testSearch" duration-ms="5809" started-at="2016-09-07T16:06:25Z" finished-at="2016-09-07T16:06:30Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSearch -->
-        <test-method status="PASS" signature="cleanUp()[pri:0, instance:com.easytesting.lucene.testing.SimpleSearchEngineTest@4318dcec]" name="cleanUp" is-config="true" duration-ms="0" started-at="2016-09-07T13:48:20Z" finished-at="2016-09-07T13:48:20Z">
+        <test-method status="PASS" signature="cleanUp()[pri:0, instance:com.easytesting.lucene.testing.SimpleSearchEngineTest@7a4eac67]" name="cleanUp" is-config="true" duration-ms="0" started-at="2016-09-07T16:06:30Z" finished-at="2016-09-07T16:06:30Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- cleanUp -->

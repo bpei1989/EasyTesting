@@ -32,9 +32,15 @@ import com.easytesting.util.PropertiesUtil;
 import com.easytesting.util.FileUtil;
 import com.easytesting.lucene.Doc;
 
-public class SimpleSearchEngine {
 
-	private static final Logger logger = LoggerFactory.getLogger(SimpleSearchEngine.class);
+/**
+ * 一个简单的搜索引擎，基于Lucene
+ * 在resources里的searchFilePah.properties配置索引文件路径，在searchKeyWorkd.properties里配置搜索关键字
+ * 可以用于搜索自动化测试的日志，查看错误的出现频率
+ */
+public class EasySearchEngine {
+
+	private static final Logger logger = LoggerFactory.getLogger(EasySearchEngine.class);
 	private static String FILE_PATH;
 	private static List<File> fileList;
 	private static int HIT = 10;
@@ -43,9 +49,9 @@ public class SimpleSearchEngine {
 	private static Directory index;
 	private static IndexWriterConfig config;
 
-	private SimpleSearchEngine() {}
+	private EasySearchEngine() {}
 
-	public static SimpleSearchEngine newInstance() {
+	public static EasySearchEngine newInstance() {
 		analyzer = new StandardAnalyzer();
 		index = new RAMDirectory();
 		config = new IndexWriterConfig(analyzer);
@@ -53,7 +59,7 @@ public class SimpleSearchEngine {
 				.loadProps("searchFilePah.properties");
 		FILE_PATH = PropertiesUtil.getString(props, "path");
 		fileList = new ArrayList<File>();
-		return new SimpleSearchEngine();
+		return new EasySearchEngine();
 	}
 
 	public static boolean createIndex() {
@@ -109,7 +115,7 @@ public class SimpleSearchEngine {
 	private static void addDoc(IndexWriter w, Doc doc) throws IOException {
 		Document document = new Document();
 		document.add(new TextField("filename", doc.getFilename(), Store.YES));
-		document.add(new TextField("content", doc.getContent(), Store.YES));
+		document.add(new TextField("content", doc.getContent(), Store.NO));
 		document.add(new TextField("path", doc.getPath(), Store.YES));
 		w.addDocument(document);
 	}
@@ -126,14 +132,14 @@ public class SimpleSearchEngine {
 			IndexSearcher searcher = new IndexSearcher(reader);
 			TopDocs docs = searcher.search(query, HIT);
 			ScoreDoc[] hits = docs.scoreDocs;
-			logger.info("找到 " + hits.length + " 文件.");
+			logger.info("得分最高的前 " + hits.length + " 文件.");
 			for (int i = 0; i < hits.length; i++) {
 				Document hitDoc = searcher.doc(hits[i].doc);
 				logger.info("*************************************************");
 				logger.info(hitDoc.get("filename"));
-				//logger.info(hitDoc.get("content"));
 				logger.info(hitDoc.get("path"));
 				logger.info("*************************************************");
+				logger.info("");
 			}
 			reader.close();
 		} catch (Exception e) {

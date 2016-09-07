@@ -1,7 +1,5 @@
 package com.easytesting.http.testing;
 
-import static org.testng.Assert.fail;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,21 +13,19 @@ import org.testng.annotations.Test;
 
 import com.easytesting.http.HttpConfig;
 import com.easytesting.http.HttpHeader;
-import com.easytesting.http.HttpMethods;
 import com.easytesting.http.EasyHttpClientBuilder;
 import com.easytesting.http.EasyHttpClient;
-import com.easytesting.util.IOUtil;
 import com.easytesting.util.FileUtil;
 
 
-public class EasyHttpClientTest {
+public class EasyHttpClientTest extends EasyHttpClientBase{
 	
 	private static final Logger log = Logger.getLogger(EasyHttpClientTest.class);
 	private String baseUrl;
 	private String httpsUrl;
 	private String proxyUrl;
 	private String response;
-	private HttpConfig config = HttpConfig.newInstance();
+
 	
 	  @BeforeClass(alwaysRun = true)
 	  public void setUp() throws Exception {
@@ -70,14 +66,12 @@ public class EasyHttpClientTest {
 			FileUtil.createFileRecursively("E:\\testing\\download.htm");
 			FileOutputStream out = new FileOutputStream(new File("E:\\testing\\download.htm"));
 			EasyHttpClient.down(HttpConfig.newInstance().url(url).out(out));
-			out.flush();
 			out.close();
 			
 			String urlTmall = "https://www.baidu.com/";
 			FileUtil.createFileRecursively("E:\\testing\\baidu.htm");
 			out = new FileOutputStream(new File("E:\\testing\\baidu.htm"));
 			EasyHttpClient.down(HttpConfig.newInstance().url(urlTmall).out(out));
-			out.flush();
 			out.close();
 			
 			

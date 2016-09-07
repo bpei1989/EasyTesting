@@ -1,4 +1,4 @@
-package com.easytesting.util;
+package com.easytesting.thread;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,15 +14,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 多线程工具类
+ * 线程池帮助类
+ * 封装了线程池的常用方法，适用于大部分情况，可以简化线程池的调用，通过CountDownLatch支持多线程同时运行
  */
-public class ThreadUtil {
+public class EasyThreadPool {
 
-	private static final Logger log = LoggerFactory.getLogger(ThreadUtil.class);
+	private static final Logger log = LoggerFactory.getLogger(EasyThreadPool.class);
 	private static final long SLEEP_PRECISION = TimeUnit.MILLISECONDS
 			.toNanos(2);
 
-	private ThreadUtil() {
+	private EasyThreadPool() {
 	}
 
 	/**
@@ -40,6 +41,45 @@ public class ThreadUtil {
 	}
 
 	/**
+	 * 通过线程池执行实现Runnable的任务，所有任务同时启动
+	 * 
+	 * @param taskObjList
+	 *            待执行的Runnable实现类对象列表
+	 * @param threadPoolSize
+	 *            线程池大小
+	 */
+	public static void executeSimultaneously(List<? extends Runnable> taskObjList,
+			int threadPoolSize) {
+		if (taskObjList != null && !taskObjList.isEmpty()) {
+			final CountDownLatch startGate = new CountDownLatch(1);//保证所有客户端线程同时启动
+			final ThreadFactory tFactory = new ThreadFactoryImpl();
+			CountDownLatch endGate = new CountDownLatch(taskObjList.size());
+			try {
+				ExecutorService pooledExecutor = Executors.newFixedThreadPool(
+						threadPoolSize, tFactory);
+				int taskSize = taskObjList.size();
+				log.info("任务总数： " + taskSize);
+				endGate = new CountDownLatch(taskSize);
+				for (Runnable runnableObj : taskObjList) {
+					//传入endGate，用于计数
+					pooledExecutor.execute(new CountDownLatchedRunnable(
+							runnableObj, startGate, endGate));
+				}
+				startGate.countDown();//发出启动信号
+				endGate.await();//等待全部线程结束
+				pooledExecutor.shutdown();//全部结束后关闭线程池
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				log.error("等待executors完成过程中发生异常: " + e.getMessage());
+			} catch (RejectedExecutionException reex) {
+				reex.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**
 	 * 通过线程池执行实现Runnable的任务
 	 * 
 	 * @param taskObjList
@@ -49,28 +89,22 @@ public class ThreadUtil {
 	 */
 	public static void execute(List<? extends Runnable> taskObjList,
 			int threadPoolSize) {
+		CountDownLatch endGate = new CountDownLatch(taskObjList.size());
 		if (taskObjList != null && !taskObjList.isEmpty()) {
-			final CountDownLatch startGate = new CountDownLatch(1);
 			final ThreadFactory tFactory = new ThreadFactoryImpl();
-			CountDownLatch endGate = new CountDownLatch(taskObjList.size());
 			try {
 				ExecutorService pooledExecutor = Executors.newFixedThreadPool(
 						threadPoolSize, tFactory);
 				int taskSize = taskObjList.size();
 				log.info("任务总数： " + taskSize);
-				endGate = new CountDownLatch(taskSize);
-				for (final Runnable runnableObj : taskObjList) {
+				for (Runnable runnableObj : taskObjList) {
 					pooledExecutor.execute(new CountDownLatchedRunnable(
 							runnableObj, endGate));
 				}
-				startGate.countDown();
-				endGate.await();
+				endGate.await();//等待全部线程结束
 				pooledExecutor.shutdown();
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-				log.error("等待executors完成过程中发生异常: " + e.getMessage());
-			} catch (RejectedExecutionException reex) {
-				reex.printStackTrace();
+			}  catch (RejectedExecutionException re) {
+				re.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -126,23 +160,33 @@ public class ThreadUtil {
 		return String.valueOf(thread.getName() + "-" + thread.hashCode());
 	}
 
-	/**
-	 * 用CountDownLatches同步线程执行时间
-	 */
-	private static class CountDownLatchedRunnable implements Runnable {
+	static class CountDownLatchedRunnable implements Runnable {
+		private final CountDownLatch startGate;
 		private final CountDownLatch endGate;
 		private final Runnable taskObj;
 
+		public CountDownLatchedRunnable(Runnable taskObj, CountDownLatch startGate, CountDownLatch endGate) {
+			this.startGate = startGate;
+			this.taskObj = taskObj;
+			this.endGate = endGate;
+		}
+		
 		public CountDownLatchedRunnable(Runnable taskObj, CountDownLatch endGate) {
+			this.startGate = null;
 			this.taskObj = taskObj;
 			this.endGate = endGate;
 		}
 
 		public void run() {
 			try {
+				if (startGate != null) {
+					startGate.await();
+				}
 				if (taskObj != null) {
 					taskObj.run();
 				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			} finally {
 				endGate.countDown();
 			}

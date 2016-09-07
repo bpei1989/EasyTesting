@@ -7,7 +7,7 @@ import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 
-import com.easytesting.selenium.WebDriverFactory;
+import com.easytesting.selenium.EasyWebDriverFactory;
 
 public class Login {
   private WebDriver driver;
@@ -17,7 +17,7 @@ public class Login {
 
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
-    driver = WebDriverFactory.getDefaultChromeDriver();
+    driver = EasyWebDriverFactory.getDefaultChromeDriver();
     baseUrl = "http://www.zhihu.com/";
   }
 

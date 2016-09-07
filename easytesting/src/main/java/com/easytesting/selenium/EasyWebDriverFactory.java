@@ -8,10 +8,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WebDriverFactory {
+/**
+ * WebDriver工厂类，封装了driver路径和常用的初始化driver的方法
+ */
+public class EasyWebDriverFactory {
 	
 	private static final Logger log = LoggerFactory
-			.getLogger(WebDriverFactory.class);
+			.getLogger(EasyWebDriverFactory.class);
 
 
 	public static WebDriver getDefaultChromeDriver() {
