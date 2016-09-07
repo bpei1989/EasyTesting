@@ -1,9 +1,11 @@
 package com.easytesting.lucene;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,8 +78,8 @@ public class EasySearchEngine {
 
 			for (File file : fileList) {
 				in = new FileInputStream(file);
-				content = IOUtil.readContentToString("UTF-8", in);
-				//System.out.println("content:" + content);
+				//content = IOUtil.readContentToString("UTF-8", in);
+				content = getErrorLine(in);
 				Doc d = new Doc();
 				d.setContent(content);
 				d.setFilename(file.getName());
@@ -96,6 +98,65 @@ public class EasySearchEngine {
 		return true;
 	}
 
+	public static boolean createIndex(String endWith) {
+		Date begin = new Date();
+		String content;
+		InputStream in;
+		try {
+			FileUtil.getFileRecursively(new File(FILE_PATH), fileList);
+			List<Doc> list = new ArrayList<Doc>();
+			if (fileList.isEmpty()) {
+				logger.error("文件列表为空");
+				return false;
+			}
+
+			for (File file : fileList) {
+				if (!file.getName().endsWith(endWith)) {
+					continue;
+				}
+				in = new FileInputStream(file);
+				content = getErrorLine(in);
+				//System.out.println("content:" + content);
+				Doc d = new Doc();
+				d.setContent(content);
+				d.setFilename(file.getName());
+				d.setPath(file.getPath());
+				list.add(d);
+				content = "";
+			}
+			initIndexWriter(index, config, list);
+
+		} catch (Exception e) {
+			logger.error("", e);
+		}
+		Date end = new Date();
+		long time = begin.getTime() - end.getTime();
+		logger.info("索引创建耗时： " + time + "毫秒");
+		return true;
+	}
+	
+	public static String getErrorLine(InputStream inputStream) throws IOException {
+		if (inputStream == null) {
+			return null;
+		}
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+		StringBuilder result = new StringBuilder();
+		try {
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				if(!line.contains("[ERROR]")) {
+					continue;
+				}
+				result.append(line);
+				result.append("\n");
+			}
+			return result.toString();
+		} finally {
+			reader.close();
+		}
+	}
+	
 	private static void initIndexWriter(Directory index,
 			IndexWriterConfig config, List<Doc> docs) throws IOException {
 		IndexWriter w;
@@ -115,12 +176,12 @@ public class EasySearchEngine {
 	private static void addDoc(IndexWriter w, Doc doc) throws IOException {
 		Document document = new Document();
 		document.add(new TextField("filename", doc.getFilename(), Store.YES));
-		document.add(new TextField("content", doc.getContent(), Store.NO));
+		document.add(new TextField("content", doc.getContent(), Store.YES));
 		document.add(new TextField("path", doc.getPath(), Store.YES));
 		w.addDocument(document);
 	}
 	
-	public static void searchResult() {
+	public static void searchResultWithPropers() {
 		try {
 			
 			Properties props = PropertiesUtil.loadProps("searchKeyWorkd.properties");
@@ -137,6 +198,32 @@ public class EasySearchEngine {
 				Document hitDoc = searcher.doc(hits[i].doc);
 				logger.info("*************************************************");
 				logger.info(hitDoc.get("filename"));
+				logger.info(hitDoc.get("content"));
+				logger.info(hitDoc.get("path"));
+				logger.info("*************************************************");
+				logger.info("");
+			}
+			reader.close();
+		} catch (Exception e) {
+			logger.error("", e);
+		}
+	}
+	
+	public static void searchResult(String queryText) {
+		try {
+			logger.info("query: " + queryText);
+			Query query = new QueryParser("content", analyzer).parse(queryText);
+			StringBuilder sb = new StringBuilder();
+			IndexReader reader = DirectoryReader.open(index);
+			IndexSearcher searcher = new IndexSearcher(reader);
+			TopDocs docs = searcher.search(query, HIT);
+			ScoreDoc[] hits = docs.scoreDocs;
+			logger.info("得分最高的前 " + hits.length + " 文件.");
+			for (int i = 0; i < hits.length; i++) {
+				Document hitDoc = searcher.doc(hits[i].doc);
+				logger.info("*************************************************");
+				logger.info(hitDoc.get("filename"));
+				logger.info(hitDoc.get("content"));
 				logger.info(hitDoc.get("path"));
 				logger.info("*************************************************");
 				logger.info("");

@@ -17,8 +17,9 @@ public class SimpleSearchEngineTest {
 	
 	@Test
 	public void testSearch() throws Exception  {
-		EasySearchEngine.createIndex();
-		EasySearchEngine.searchResult();
+		EasySearchEngine.createIndex("testcase.log");
+		//EasySearchEngine.searchResult("ERROR|Test failed");
+		EasySearchEngine.searchResult("ERROR AND　Test failed");
 	}
 	
 	@AfterMethod(alwaysRun = true)
