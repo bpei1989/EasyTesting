@@ -76,6 +76,36 @@ public class IOUtil {
 	}
 
 	/**
+	 * 获取所有行并关闭流
+	 * 
+	 * @param charset
+	 *            编码
+	 * @param inputStream
+	 *            输入流
+	 * @return 每行内容组成的List
+	 * @throws IOException
+	 */
+	public static String readContentToString(String charset,
+			InputStream inputStream) throws IOException {
+		if (inputStream == null) {
+			return null;
+		}
+
+		BufferedReader reader = getBufferedReader(inputStream, charset);
+		StringBuilder result = new StringBuilder();
+		try {
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				result.append(line);
+				result.append("\n");
+			}
+			return result.toString();
+		} finally {
+			close(reader);
+		}
+	}
+	
+	/**
 	 * 获取BufferedReader
 	 * 
 	 * @param inputStream

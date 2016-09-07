@@ -8,7 +8,7 @@ public class Doc {
 		return content;
 	}
 	public void setContent(String content) {
-		this.content = content;
+		this.content = new String(content);
 	}
 	public String getFilename() {
 		return filename;

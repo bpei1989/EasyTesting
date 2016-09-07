@@ -3,13 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.easytesting.http.testing.EasyHttpClientTest">
+      <class name="com.easytesting.lucene.testing.SimpleSearchEngineTest">
         <methods>
-          <include name="tearDown"/>
-          <include name="testProxySSLGet"/>
+          <include name="cleanUp"/>
           <include name="setUp"/>
+          <include name="testSearch"/>
         </methods>
-      </class> <!-- com.easytesting.http.testing.EasyHttpClientTest -->
+      </class> <!-- com.easytesting.lucene.testing.SimpleSearchEngineTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

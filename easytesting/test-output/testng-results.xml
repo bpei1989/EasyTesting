@@ -1,41 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="5" passed="5">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="7414" started-at="2016-09-05T03:16:53Z" finished-at="2016-09-05T03:17:01Z">
+  <suite name="Default suite" duration-ms="7356" started-at="2016-09-07T05:48:13Z" finished-at="2016-09-07T05:48:20Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="7414" started-at="2016-09-05T03:16:53Z" finished-at="2016-09-05T03:17:01Z">
-      <class name="com.easytesting.http.testing.EasyHttpClientTest">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@45332c8a]" name="setUp" is-config="true" duration-ms="10" started-at="2016-09-05T11:16:53Z" finished-at="2016-09-05T11:16:53Z">
+    <test name="Default test" duration-ms="7356" started-at="2016-09-07T05:48:13Z" finished-at="2016-09-07T05:48:20Z">
+      <class name="com.easytesting.lucene.testing.SimpleSearchEngineTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.easytesting.lucene.testing.SimpleSearchEngineTest@4318dcec]" name="setUp" is-config="true" duration-ms="362" started-at="2016-09-07T13:48:13Z" finished-at="2016-09-07T13:48:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="testDownload()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@45332c8a]" name="testDownload" duration-ms="2998" started-at="2016-09-05T11:16:53Z" finished-at="2016-09-05T11:16:56Z">
+        <test-method status="PASS" signature="testSearch()[pri:0, instance:com.easytesting.lucene.testing.SimpleSearchEngineTest@4318dcec]" name="testSearch" duration-ms="6980" started-at="2016-09-07T13:48:13Z" finished-at="2016-09-07T13:48:20Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testDownload -->
-        <test-method status="PASS" signature="testHeaderGet()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@45332c8a]" name="testHeaderGet" duration-ms="1309" started-at="2016-09-05T11:16:56Z" finished-at="2016-09-05T11:16:57Z">
+        </test-method> <!-- testSearch -->
+        <test-method status="PASS" signature="cleanUp()[pri:0, instance:com.easytesting.lucene.testing.SimpleSearchEngineTest@4318dcec]" name="cleanUp" is-config="true" duration-ms="0" started-at="2016-09-07T13:48:20Z" finished-at="2016-09-07T13:48:20Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testHeaderGet -->
-        <test-method status="PASS" signature="testProxyGet()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@45332c8a]" name="testProxyGet" duration-ms="1614" started-at="2016-09-05T11:16:57Z" finished-at="2016-09-05T11:16:59Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testProxyGet -->
-        <test-method status="PASS" signature="testSimpleGet()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@45332c8a]" name="testSimpleGet" duration-ms="1044" started-at="2016-09-05T11:16:59Z" finished-at="2016-09-05T11:17:00Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSimpleGet -->
-        <test-method status="PASS" signature="testhttpsGet()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@45332c8a]" name="testhttpsGet" duration-ms="403" started-at="2016-09-05T11:17:00Z" finished-at="2016-09-05T11:17:01Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testhttpsGet -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.easytesting.http.testing.EasyHttpClientTest@45332c8a]" name="tearDown" is-config="true" duration-ms="0" started-at="2016-09-05T11:17:01Z" finished-at="2016-09-05T11:17:01Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- com.easytesting.http.testing.EasyHttpClientTest -->
+        </test-method> <!-- cleanUp -->
+      </class> <!-- com.easytesting.lucene.testing.SimpleSearchEngineTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
