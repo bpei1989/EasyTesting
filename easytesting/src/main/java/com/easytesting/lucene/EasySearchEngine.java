@@ -145,11 +145,10 @@ public class EasySearchEngine {
 		try {
 			String line = null;
 			while ((line = reader.readLine()) != null) {
-				if(!line.contains("[ERROR]")) {
-					continue;
+				if(line.contains("[ERROR]") || line.contains("[FAIL]")) {
+					result.append(line);
+					result.append("\n");
 				}
-				result.append(line);
-				result.append("\n");
 			}
 			return result.toString();
 		} finally {
@@ -209,11 +208,11 @@ public class EasySearchEngine {
 		}
 	}
 	
-	public static void searchResult(String queryText) {
+	public static List<String> searchResult(String queryText) {
+		List<String> errorLines = new ArrayList<String>();
 		try {
 			logger.info("query: " + queryText);
 			Query query = new QueryParser("content", analyzer).parse(queryText);
-			StringBuilder sb = new StringBuilder();
 			IndexReader reader = DirectoryReader.open(index);
 			IndexSearcher searcher = new IndexSearcher(reader);
 			TopDocs docs = searcher.search(query, HIT);
@@ -224,6 +223,7 @@ public class EasySearchEngine {
 				logger.info("*************************************************");
 				logger.info(hitDoc.get("filename"));
 				logger.info(hitDoc.get("content"));
+				errorLines.add(hitDoc.get("content"));
 				logger.info(hitDoc.get("path"));
 				logger.info("*************************************************");
 				logger.info("");
@@ -232,6 +232,7 @@ public class EasySearchEngine {
 		} catch (Exception e) {
 			logger.error("", e);
 		}
+		return errorLines;
 	}
 	
 
