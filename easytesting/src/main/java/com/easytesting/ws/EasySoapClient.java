@@ -37,9 +37,10 @@ public class EasySoapClient {
 	public static <T> T getWebServiceByHttps() {
 		T serviceClient = (T) jaxWsProxyFactoryBean.create();
 		TLSClientParameters tlsParams = new TLSClientParameters();
-		TrustManager[] tm = null;
-		tm[0] = new MyTrustManager();
-		tlsParams.setTrustManagers(tm);
+		TrustManager tm = new MyTrustManager();
+		TrustManager[] tms = new TrustManager[1];
+		tms[0] = tm;
+		tlsParams.setTrustManagers(tms);
 		tlsParams.setDisableCNCheck(true);
 		Client proxy = ClientProxy.getClient(serviceClient);
 		((HTTPConduit) proxy.getConduit()).setTlsClientParameters(tlsParams);

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -136,6 +137,8 @@ public class SSHUtil {
 	 */
 	public static Map<String, String> getRemoteSSHCmdOutput(Connection conn,
 			String command, long timeout) throws Exception {
+		if (command == null || StringUtils.isBlank(command) || conn == null || timeout <=0)
+			return null;
 		Session session = null;
 		InputStream stderr = null;
 		InputStream stdout = null;

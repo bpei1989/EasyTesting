@@ -89,6 +89,10 @@ public class EasyThreadPool {
 	 */
 	public static void execute(List<? extends Runnable> taskObjList,
 			int threadPoolSize) {
+		if (taskObjList == null || taskObjList.isEmpty() || threadPoolSize <= 0) {
+			log.error("输入参数不合法");
+			return;
+		}
 		CountDownLatch endGate = new CountDownLatch(taskObjList.size());
 		if (taskObjList != null && !taskObjList.isEmpty()) {
 			final ThreadFactory tFactory = new ThreadFactoryImpl();

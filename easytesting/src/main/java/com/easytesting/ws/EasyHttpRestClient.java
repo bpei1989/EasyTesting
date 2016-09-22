@@ -43,7 +43,7 @@ public class EasyHttpRestClient {
     	try {
 	    	HttpClient client = EasyHttpClientBuilder.newInstance().timeout(timeout).pool(maxTotal, maxPerRoute).build();
 	        String body = EasyHttpClient.get(config.client(client).url(url));
-	        if (StringUtil.isNotBlank(body)) {
+	        if (!StringUtil.isBlank(body)) {
 	            return JSONArray.parseArray(body);
 	        }
     	} catch (Exception e) {
@@ -56,7 +56,7 @@ public class EasyHttpRestClient {
     	try {
     		HttpClient client = EasyHttpClientBuilder.newInstance().configSSL().timeout(timeout).pool(maxTotal, maxPerRoute).build();
     		String body = EasyHttpClient.get(config.client(client).url(url));
-	        if (StringUtil.isNotBlank(body)) {
+	        if (!StringUtil.isBlank(body)) {
 	            return JSONArray.parseArray(body);
 	        }
     	} catch (Exception e) {
@@ -69,7 +69,7 @@ public class EasyHttpRestClient {
     	try {
 	    	HttpClient client = EasyHttpClientBuilder.newInstance().timeout(timeout).pool(maxTotal, maxPerRoute).build();
 	    	String body = EasyHttpClient.get(config.client(client).url(url));
-	        if (StringUtil.isNotBlank(body)) {
+	        if (!StringUtil.isBlank(body)) {
 	            return JSONObject.parseObject(body);
 	        }
         } catch (Exception e) {
@@ -103,7 +103,7 @@ public class EasyHttpRestClient {
     	try {
     		HttpClient client = EasyHttpClientBuilder.newInstance().configSSL().timeout(timeout).pool(maxTotal, maxPerRoute).build();
     		String body = EasyHttpClient.get(config.client(client).url(url));
-	        if (StringUtil.isNotBlank(body)) {
+	        if (!StringUtil.isBlank(body)) {
 	            return JSONObject.parseObject(body);
 	        }
     	} catch (Exception e) {
@@ -117,7 +117,7 @@ public class EasyHttpRestClient {
     		HttpClient client = EasyHttpClientBuilder.newInstance().configSSL().timeout(timeout).pool(maxTotal, maxPerRoute).build();
     		Header[] headers=HttpHeader.newInstance().userAgent("Mozilla/5.0").connection(HttpConstants.KEEP_ALIVE).contentType(HttpConstants.APPLICATION_JSON).build();
     		String ret = EasyHttpClient.post(config.client(client).headers(headers).url(url));
-	        if (StringUtil.isNotBlank(ret)) {
+	        if (!StringUtil.isBlank(ret)) {
 	            return true;
 	        }
     	} catch (Exception e) {
@@ -133,7 +133,7 @@ public class EasyHttpRestClient {
     		Header header2 = new BasicHeader("connection", HttpConstants.KEEP_ALIVE);
     		Header[] headers = {header1, header2};
     		String ret = EasyHttpClient.post(config.client(client).headers(headers).url(url));
-	        if (StringUtil.isNotBlank(ret)) {
+	        if (!StringUtil.isBlank(ret)) {
 	            return true;
 	        }
     	} catch (Exception e) {

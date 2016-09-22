@@ -93,7 +93,8 @@ public class SSL {
 			e.printStackTrace();
 		}finally{
 			try {
-				instream.close();
+				if (instream != null)
+					instream.close();
 			} catch (IOException e) {}
 		}
 		return this;

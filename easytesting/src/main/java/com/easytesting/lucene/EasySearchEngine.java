@@ -187,7 +187,6 @@ public class EasySearchEngine {
 			String queryText = PropertiesUtil.getString(props, "keyword");
 			logger.info("query: " + queryText);
 			Query query = new QueryParser("content", analyzer).parse(queryText);
-			StringBuilder sb = new StringBuilder();
 			IndexReader reader = DirectoryReader.open(index);
 			IndexSearcher searcher = new IndexSearcher(reader);
 			TopDocs docs = searcher.search(query, HIT);

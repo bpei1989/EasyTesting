@@ -38,8 +38,8 @@ public final class StringUtil {
      * @param str 字符串
      * @return 空白则返回false，否则true
      */
-    public static boolean isNotBlank(String str) {
-        return isNotBlank(str);
+    public static boolean isBlank(String str) {
+        return !StringUtils.isNotBlank(str);
     }
     
     /**
@@ -68,7 +68,7 @@ public final class StringUtil {
     {
         if (s1 == null || s2 == null)
         {
-            return s1 == s2;
+            return false;
         }
         return s1.equalsIgnoreCase(s2);
     }
