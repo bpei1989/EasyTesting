@@ -1,14 +1,19 @@
 package com.easytesting.util;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import ch.ethz.ssh2.ChannelCondition;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.InteractiveCallback;
+import ch.ethz.ssh2.SCPClient;
+import ch.ethz.ssh2.SCPOutputStream;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
 
@@ -264,6 +271,59 @@ public class SSHUtil {
 			}
 		}
 	}
+	
+	/**
+	 * Copy the remote file to local with scp
+	 *
+	 * @param Connection
+	 *            SSH Connection
+	 * @param remote
+	 *            remote file path
+	 * @param localFile
+	 *            localFile file path
+	 * @throws IOException
+	 *             , Exception
+	 */
+	public static void scpRemoteFileToLocal(Connection con, String remote, String localFile) throws IOException {
+        File file = new File(localFile);
+        if (file.isDirectory()) {
+            throw new RuntimeException(localFile + "  is not a file");
+        }
+		SCPClient scpClient = con.createSCPClient();
+		String content = IOUtils.toString(scpClient.get(remote));
+		OutputStream out = new FileOutputStream(file);
+		out.write(content.getBytes());
+		out.flush();
+		out.close();
+	}
+	
+	/**
+	 * Copy the local file to remote with scp
+	 *
+	 * @param Connection
+	 *            SSH Connection
+	 * @param localFile
+	 *            remote localFile path
+	 * @param remoteTargetDirectory
+	 *            Target file path
+	 * @throws IOException
+	 *             , Exception
+	 */
+    public static void scpLocalFileToRemote(Connection connection,String localFile, String remoteTargetDirectory) throws IOException {
+        File file = new File(localFile);
+        if (file.isDirectory()) {
+            throw new RuntimeException(localFile + "  is not a file");
+        }
+        String fileName = file.getName();
+ 
+        SCPClient sCPClient = connection.createSCPClient();
+        SCPOutputStream scpOutputStream = sCPClient.put(fileName, file.length(), remoteTargetDirectory, "7777");
+ 
+        String content = IOUtils.toString(new FileInputStream(file));
+        scpOutputStream.write(content.getBytes());
+        scpOutputStream.flush();
+        scpOutputStream.close();
+    }
 	
 	
 	public static void main(String args[]) {
