@@ -1,4 +1,4 @@
-package com.easytesting.thread;
+package com.easytesting.concurrency;
 
 import java.util.ArrayList;
 import java.util.Iterator;

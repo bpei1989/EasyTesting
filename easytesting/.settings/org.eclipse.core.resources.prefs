@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/easytesting/concurrency/EasyThreadPool.java=UTF-8
 encoding//src/main/java/com/easytesting/http/EasyHttpClient.java=UTF-8
 encoding//src/main/java/com/easytesting/http/EasyHttpClientBuilder.java=UTF-8
 encoding//src/main/java/com/easytesting/http/HttpConfig.java=UTF-8
@@ -9,7 +10,6 @@ encoding//src/main/java/com/easytesting/http/HttpMethods.java=UTF-8
 encoding//src/main/java/com/easytesting/http/SSL.java=UTF-8
 encoding//src/main/java/com/easytesting/http/Utils.java=UTF-8
 encoding//src/main/java/com/easytesting/lucene/EasySearchEngine.java=UTF-8
-encoding//src/main/java/com/easytesting/thread/EasyThreadPool.java=UTF-8
 encoding//src/main/java/com/easytesting/util/Base64Util.java=UTF-8
 encoding//src/main/java/com/easytesting/util/CastUtil.java=UTF-8
 encoding//src/main/java/com/easytesting/util/FileUtil.java=UTF-8
